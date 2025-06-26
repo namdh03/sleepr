@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { InternalServerErrorException, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from 'nestjs-pino';
+import * as cookieParser from 'cookie-parser';
 import { AuthModule } from './auth.module';
 
 async function bootstrap() {
@@ -9,6 +10,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT');
 
+  app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useLogger(app.get(Logger));
 
