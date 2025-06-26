@@ -10,5 +10,18 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: pnpm run start:dev auth
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
   mongo:
     image: mongo
+    ports:
+      - '28017:27017'
