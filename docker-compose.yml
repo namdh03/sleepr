@@ -9,6 +9,15 @@ services:
       - ./apps/reservations/.env
     ports:
       - '3000:3000'
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/reservations
+          target: /usr/src/app/apps/reservations
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./apps/reservations/package.json
 
   auth:
     build:
@@ -20,6 +29,15 @@ services:
       - ./apps/auth/.env
     ports:
       - '3001:3001'
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/auth
+          target: /usr/src/app/apps/auth
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./apps/auth/package.json
 
   mongo:
     image: mongo
