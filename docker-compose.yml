@@ -47,8 +47,6 @@ services:
     command: pnpm run start:dev payments
     env_file:
       - ./apps/payments/.env
-    ports:
-      - '3003:3003'
     develop:
       watch:
         - action: sync
@@ -58,6 +56,24 @@ services:
             - node_modules/
         - action: rebuild
           path: ./apps/payments/package.json
+
+  notifications:
+    build:
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: development
+    command: pnpm run start:dev notifications
+    env_file:
+      - ./apps/notifications/.env
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/notifications
+          target: /usr/src/app/apps/notifications
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./apps/notifications/package.json
 
   mongo:
     image: mongo
