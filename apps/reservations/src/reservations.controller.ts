@@ -26,6 +26,7 @@ export class ReservationsController {
     return this.reservationsService.create(createReservationDto, user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.reservationsService.findAll();
