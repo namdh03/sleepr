@@ -19,7 +19,7 @@ export class PaymentsService {
       throw new Error('STRIPE_SECRET_KEY is not defined in configuration');
     }
     this.stripe = new Stripe(stripeSecretKey, {
-      apiVersion: '2025-05-28.basil',
+      apiVersion: '2025-06-30.basil',
     });
   }
 
